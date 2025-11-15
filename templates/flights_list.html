@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background: 
+      linear-gradient(rgba(0, 50, 100, 0.7), rgba(0, 30, 60, 0.8)),
+      url('https://img.freepik.com/premium-photo/plane-sky-passenger-commercial-plane-flying-clouds-concept-fast-travel-vacation-business_35148-2682.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 40px 0;
+  }
+
+  .container-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 40px 50px;
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    text-align: center;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Search bar */
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+  }
+
+  .search-bar input {
+    border-radius: 25px;
+    border: none;
+    padding: 10px 20px;
+    width: 200px;
+    outline: none;
+    color: #333;
+  }
+
+  .btn-search {
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .btn-search:hover {
+    background-color: #084298;
+    transform: translateY(-2px);
+  }
+
+  /* Table styling */
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    color: #fff;
+  }
+
+  th, td {
+    padding: 12px 16px;
+    text-align: center;
+  }
+
+  th {
+    background-color: rgba(13, 110, 253, 0.8);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  tr:hover {
+    background-color: rgba(13, 110, 253, 0.4);
+    transition: 0.3s;
+  }
+
+  .price {
+    font-weight: 600;
+    color: #cce5ff;
+  }
+
+  .seats {
+    font-weight: 600;
+  }
+
+  /* Back button */
+  .btn-back {
+    margin-top: 30px;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .btn-back:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+  }
+
+</style>
+
+<div class="container-box">
+  <h2>Search Flights</h2>
+
+  <form method="GET" class="search-bar">
+    <input type="text" name="origin" placeholder="Origin (e.g., DEL)">
+    <input type="text" name="destination" placeholder="Destination (e.g., BOM)">
+    <input type="date" name="date">
+    <button type="submit" class="btn-search">Search</button>
+  </form>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Flight</th>
+        <th>Route</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Price</th>
+        <th>Seats</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in flights %}
+      <tr>
+        <td>{{ f[0] }}</td>
+        <td>{{ f[1] }} → {{ f[2] }}</td>
+        <td>{{ f[3] }}</td>
+        <td>{{ f[4] }}</td>
+        <td class="price">₹{{ "%.2f"|format(f[5]) }}</td>
+        <td class="seats">{{ f[6] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="/welcome" class="btn-back">← Back to Home</a>
+</div>
+
+{% endblock %}

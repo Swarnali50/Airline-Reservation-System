@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <div class="p-4 rounded" style="background:rgba(255,255,255,0.08);">
+    <h2 class="text-white">Admin Dashboard</h2>
+    <p class="text-white-50">Welcome, {{ session.admin_name }}</p>
+    <div class="row">
+      <div class="col-md-3"><a href="{{ url_for('admin.flights_list') }}" class="btn btn-primary w-100 mb-2">Manage Flights</a></div>
+      <div class="col-md-3"><a href="{{ url_for('admin.bookings_view') }}" class="btn btn-info w-100 mb-2">View Bookings</a></div>
+      <div class="col-md-3"><a href="{{ url_for('admin.passengers_view') }}" class="btn btn-success w-100 mb-2">Passengers</a></div>
+      <div class="col-md-3"><a href="{{ url_for('admin.logout') }}" class="btn btn-outline-light w-100 mb-2">Logout</a></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

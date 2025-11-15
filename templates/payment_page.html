@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)),
+    url('https://img.freepik.com/premium-photo/plane-sky-passenger-commercial-plane-flying-clouds-concept-fast-travel-vacation-business_35148-2682.jpg')
+    no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.payment-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  padding: 40px 50px;
+  margin: 80px auto;
+  max-width: 700px;
+  color: #003366;
+}
+
+h2 {
+  text-align: center;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 25px;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #0a3c79;
+}
+
+select, input {
+  border: 1px solid #bcd0f7;
+  border-radius: 6px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.btn-pay {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 25px;
+  width: 48%;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-pay:hover {
+  background-color: #084298;
+}
+
+.btn-cancel {
+  background-color: #084298;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 25px;
+  width: 48%;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-cancel:hover {
+  background-color: #084298;
+}
+</style>
+
+<div class="payment-container">
+  <h2>Payment Gateway</h2>
+
+  <p><strong>Passenger:</strong> {{ name }}</p>
+  <p><strong>Flight:</strong> {{ flight_id }}</p>
+  <p><strong>Amount:</strong> ₹{{ amount }}</p>
+
+  <form method="POST" action="{{ url_for('payment.confirm_payment') }}">
+    <input type="hidden" name="booking_id" value="{{ booking_id }}">
+    <input type="hidden" name="name" value="{{ name }}">
+    <input type="hidden" name="flight_id" value="{{ flight_id }}">
+    <input type="hidden" name="amount" value="{{ amount }}">
+
+    <label class="form-label"><strong>Select Payment Method:</strong></label>
+    <select name="method" required>
+      <option value="Credit Card">Credit Card</option>
+      <option value="UPI">UPI</option>
+      <option value="Net Banking">Net Banking</option>
+    </select>
+
+    <div style="display: flex; justify-content: space-between; gap: 10px;">
+  <!-- Confirm Payment LEFT -->
+      <a href="{{ url_for('bookings.cancel_payment', booking_id=booking_id) }}"
+        class="btn-cancel">Confirm Payment</a>
+
+  <!-- Cancel Payment RIGHT -->
+       <button type="submit" class="btn-pay">Cancel Payment</button>
+    </div>
+
+  </form>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: 
+      linear-gradient(to right, rgba(27, 26, 26, 0.33), rgba(21, 22, 23, 0.9)),
+      url('https://img.freepik.com/premium-photo/plane-sky-passenger-commercial-plane-flying-clouds-concept-fast-travel-vacation-business_35148-2682.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #222;
+    min-height: 100vh;
+  }
+
+  .main-container {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    width: 85%;
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 40px 50px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  h3 {
+    text-align: center;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 30px;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #0a3c79;
+  }
+
+  .form-control, .form-select {
+    border-radius: 6px;
+    border: 1px solid #bcd0f7;
+    padding: 10px 15px;
+    color: #333;
+    background-color: #fff;
+  }
+
+  .form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+  }
+
+  .btn-confirm {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-confirm:hover {
+    background-color: #084298;
+  }
+
+  .btn-back {
+    background-color: #adb5bd;
+    color: white;
+    border-radius: 6px;
+    padding: 10px 25px;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: 0.3s;
+  }
+
+  .btn-back:hover {
+    background-color: #868e96;
+  }
+</style>
+
+<div class="main-container">
+  <h3>Book a Flight</h3>
+
+  <form method="post">
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <label class="form-label">Passenger Name</label>
+        <input class="form-control" name="passenger_name" placeholder="Enter full name" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Phone</label>
+        <input class="form-control" name="contact" placeholder="Phone number">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Email</label>
+        <input class="form-control" name="email" placeholder="Email" required>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Flight</label>
+        <select class="form-select" id="flight_select" name="flight_id" required>
+          {% for fx in flights %}
+            <option value="{{ fx[0] }}" data-price="{{ fx[4] }}">
+              {{ fx[0] }} ({{ fx[1] }} → {{ fx[2] }}) {{ fx[3] }} — ₹{{ fx[4] }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Seat No</label>
+        <input class="form-control" name="seat_no" placeholder="e.g., A12" required>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Amount</label>
+        <input id="amount_input" class="form-control" name="amount" placeholder="₹" required>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-confirm">Confirm Booking</button>
+      <a href="/welcome" class="btn-back">Back to Home</a>
+    </div>
+  </form>
+</div>
+
+<!-- ✅ Auto-fill price when flight changes -->
+<script>
+document.getElementById("flight_select").addEventListener("change", function () {
+    let selected = this.options[this.selectedIndex];
+    let price = selected.dataset.price; 
+    document.getElementById("amount_input").value = price;
+});
+</script>
+
+{% endblock %}
+
+

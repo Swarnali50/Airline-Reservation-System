@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="text-white">Flights</h3>
+    <a href="{{ url_for('admin.flight_new') }}" class="btn btn-light">+ New Flight</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-dark">
+      <thead>
+        <tr><th>Flight ID</th><th>Route</th><th>Departure</th><th>Arrival</th><th>Price</th><th>Seats</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td>{{ r[0] }}</td>
+          <td>{{ r[2] }} → {{ r[3] }}</td>
+          <td>{{ r[4] }}</td>
+          <td>{{ r[5] }}</td>
+          <td>₹{{ r[6] }}</td>
+          <td>{{ r[7] }}/{{ r[8] }}</td>
+          <td>
+            <a href="{{ url_for('admin.flight_edit', flight_id=r[0]) }}" class="btn btn-sm btn-outline-light">Edit</a>
+            <form method="POST" action="{{ url_for('admin.flight_delete', flight_id=r[0]) }}" style="display:inline" onsubmit="return confirm('Delete flight?')">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

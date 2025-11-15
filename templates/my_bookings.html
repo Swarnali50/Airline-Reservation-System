@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(
+        rgba(0, 50, 100, 0.7),
+        rgba(0, 30, 60, 0.8)
+    ), url('https://img.freepik.com/premium-photo/plane-sky-passenger-commercial-plane-flying-clouds-concept-fast-travel-vacation-business_35148-2682.jpg')
+    no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    padding: 40px 0;
+}
+.card-glass {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    color: white;
+}
+table { color: white; }
+th {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+</style>
+
+<div class="container text-center">
+    <div class="card-glass">
+        <h2 class="mb-4">Your Bookings</h2>
+
+        {% if rows %}
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Flight</th>
+                <th>Seat</th>
+                <th>Status</th>
+                <th>Payment</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for r in rows %}
+            <tr>
+                <td>{{ r[0] }}</td>
+                <td>{{ r[1] }}</td>
+                <td>{{ r[2] }}</td>
+
+                <td>
+                    {% if r[3] == "CONFIRMED" %}
+                        <span class="badge bg-success">Confirmed</span>
+                    {% elif r[3] == "CANCELLED" %}
+                        <span class="badge bg-danger">Cancelled</span>
+                    {% else %}
+                        <span class="badge bg-secondary">{{ r[3] }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if r[4] == "COMPLETED" %}
+                        <span class="badge bg-success">Paid</span>
+                    {% elif r[4] == "CANCELLED" %}
+                        <span class="badge bg-danger">Cancelled</span>
+                    {% elif r[4] == "NOT PAID" %}
+                        <span class="badge bg-secondary">Pending</span>
+                    {% else %}
+                        <span class="badge bg-secondary">{{ r[4] }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+        <div class="alert alert-info">No bookings yet.</div>
+        {% endif %}
+
+        <a href="/welcome" class="btn btn-light mt-3">← Back</a>
+    </div>
+</div>
+
+{% endblock %}
+
+

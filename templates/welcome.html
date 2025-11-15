@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+    background: 
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 20, 50, 0.7)),
+      url('https://img.freepik.com/premium-photo/plane-sky-passenger-commercial-plane-flying-clouds-concept-fast-travel-vacation-business_35148-2682.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 70px;
+  }
+
+  .container-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 50px 60px;
+    text-align: center;
+    width: 85%;
+    max-width: 850px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 1.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  p {
+    color: #dbe4f0;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+
+  /* Button Row */
+  .button-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .btn-custom {
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 180px;
+    border: none;
+  }
+
+  .btn-custom:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+  }
+
+  .btn-view, .btn-book, .btn-my, .btn-logout {
+    background-color: #0d6efd;
+    color: white;
+  }
+
+  /* Table Styling */
+  table {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-top: 20px;
+    color: #fff;
+  }
+
+  th {
+    background-color: rgba(0, 123, 255, 0.6);
+    color: #fff;
+  }
+
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+  }
+
+  .badge {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+</style>
+
+<div class="container-box">
+  <h1>Welcome to Airline Reservation System!</h1>
+  <p>Manage your bookings and explore flights with ease.</p>
+
+  <div class="button-row">
+    <a href="/flights" class="btn btn-custom btn-view">View Flights</a>
+    <a href="/book" class="btn btn-custom btn-book">Book Flight</a>
+    <a href="/mybookings" class="btn btn-custom btn-my">View Bookings</a>
+    <a href="/logout" class="btn btn-custom btn-logout">Logout</a>
+  </div>
+
+  <!-- Booking Table Section -->
+  <div id="bookingSection" style="display:none;">
+    <h4 class="mb-3">Your Bookings</h4>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Flight</th>
+          <th>Seat No</th>
+          <th>Status</th>
+          <th>Payment</th>
+        </tr>
+      </thead>
+      <tbody id="bookingTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // Fetch & show bookings dynamically
+  document.getElementById("viewBookingsBtn").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const section = document.getElementById("bookingSection");
+    section.style.display = "block";
+
+    const res = await fetch("/api/bookings");
+    const data = await res.json();
+    const tbody = document.getElementById("bookingTableBody");
+    tbody.innerHTML = "";
+
+    if (data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center text-light">No bookings yet.</td></tr>`;
+      return;
+    }
+
+    data.forEach(row => {
+      const [booking_id, passenger_id, flight_id, seat_no, status] = row;
+      const payment = status === "CONFIRMED" ? "Completed" : "Pending";
+      const statusClass = status === "CONFIRMED" ? "success" : "danger";
+      const paymentClass = payment === "Completed" ? "success" : "secondary";
+
+      tbody.innerHTML += `
+        <tr>
+          <td>{{ user }}</td>
+          <td>${flight_id}</td>
+          <td>${seat_no || "-"}</td>
+          <td><span class="badge bg-${statusClass}">${status}</span></td>
+          <td><span class="badge bg-${paymentClass}">${payment}</span></td>
+        </tr>
+      `;
+    });
+  });
+</script>
+
+{% endblock %}
+
+

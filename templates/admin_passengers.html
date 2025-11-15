@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h3 class="text-white">Passengers</h3>
+  <table class="table table-dark table-striped">
+    <thead><tr><th>ID</th><th>Name</th><th>Contact</th><th>Email</th></tr></thead>
+    <tbody>
+      {% for r in rows %}
+        <tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td><td>{{ r[2] }}</td><td>{{ r[3] }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Gateway</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #00b4db, #0083b0);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 15px;
+      color: #fff;
+      text-align: center;
+      width: 450px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .btn {
+      border-radius: 30px;
+      padding: 10px 25px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Confirm Your Payment</h2>
+    <hr>
+    <p><b>Passenger:</b> {{ name }}</p>
+    <p><b>Flight:</b> {{ flight_id }}</p>
+    <p><b>Seat:</b> {{ seat_no }}</p>
+    <p><b>Amount:</b> ₹{{ amount }}</p>
+
+    <form method="POST" action="/confirm_payment">
+      <button type="submit" class="btn btn-success">Confirm Payment</button>
+    </form>
+    <br>
+    <a href="/book" class="btn btn-danger">Cancel</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h3 class="text-white">{{ 'Edit' if mode=='edit' else 'New' }} Flight</h3>
+  <form method="post">
+    <div class="row g-2">
+      <div class="col-md-4"><input class="form-control" name="flight_id" placeholder="Flight ID" value="{{ flight[0] if flight else '' }}" {{ 'readonly' if mode=='edit' else '' }} required></div>
+      <div class="col-md-4"><input class="form-control" name="airplane_id" placeholder="Airplane ID" value="{{ flight[1] if flight else '' }}"></div>
+      <div class="col-md-4"><input class="form-control" name="origin_airport_id" placeholder="Origin (DEL)" value="{{ flight[2] if flight else '' }}"></div>
+    </div>
+    <div class="row g-2 mt-2">
+      <div class="col-md-4"><input class="form-control" name="destination_airport_id" placeholder="Destination (BOM)" value="{{ flight[3] if flight else '' }}"></div>
+      <div class="col-md-4"><input class="form-control" name="departure_utc" placeholder="2025-12-01 09:00:00 +05:30" value="{{ flight[4] if flight else '' }}"></div>
+      <div class="col-md-4"><input class="form-control" name="arrival_utc" placeholder="2025-12-01 11:30:00 +05:30" value="{{ flight[5] if flight else '' }}"></div>
+    </div>
+    <div class="row g-2 mt-2">
+      <div class="col-md-4"><input class="form-control" name="price" placeholder="Price" value="{{ flight[6] if flight else '' }}"></div>
+      <div class="col-md-4"><input class="form-control" name="seats_total" placeholder="Seats total" value="{{ flight[7] if flight else '' }}"></div>
+      <div class="col-md-4"><button class="btn btn-light w-100 mt-1">Save</button></div>
+    </div>
+  </form>
+</div>
+{% endblock %}
