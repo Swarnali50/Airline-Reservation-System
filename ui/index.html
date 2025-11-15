@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airline Reservation System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+
+      background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 20, 50, 0.6)),
+        url('https://img.freepik.com/premium-photo/plane-sky-passenger-commercial-plane-flying-clouds-concept-fast-travel-vacation-business_35148-2682.jpg')
+        no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .main-box {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: 60px 80px;
+      width: 80%;
+      max-width: 700px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 15px;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    p {
+      font-size: 1.15rem;
+      margin-bottom: 35px;
+      color: #f1f1f1;
+    }
+
+    .btn-custom {
+      margin: 10px;
+      padding: 12px 32px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-light {
+      background-color: #fff;
+      color: #007bff;
+      border: none;
+    }
+
+    .btn-light:hover {
+      background-color: #e2e6ea;
+      color: #0056b3;
+      transform: translateY(-3px);
+    }
+
+    .btn-dark {
+      background-color: #212529;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-dark:hover {
+      background-color: #343a40;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      color: #eaeaea;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-box">
+    <h1>Welcome to Airline Reservation System</h1>
+    <p>Book, manage, and explore your flights effortlessly.</p>
+
+    <!-- These links will only open static pages -->
+    <a href="booking_form.html" class="btn btn-light btn-custom">Book a Flight</a>
+    <a href="my_bookings.html" class="btn btn-dark btn-custom">My Bookings</a>
+  </div>
+
+  <footer>
+    © 2025 Airline Reservation System
+  </footer>
+</body>
+</html>
